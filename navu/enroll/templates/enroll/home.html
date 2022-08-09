@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+{% load static %}
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'enroll/css/style.css' %}" >
+    <title>resume uploder</title>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+
+
+</head>
+<style>
+    .form{
+    padding-left:50px;
+    padding-right:50px;
+    padding-bottom:50px;
+    padding-top:10px;
+    font-size:20px;
+
+    width:500px;
+     margin-left:10px;
+     box-shadow:0 4px 8px 0 ;
+    }
+    .list{
+    margin-left:630px;
+    margin-top:-1000px;
+    background-color:black;
+height:50px;
+width:500px;
+
+    }
+
+th,td{
+width:20vw;
+text-align:center;
+padding:7px;
+}
+
+tr:nth-child(odd){
+background:#e6ffee;
+}
+    .size{
+    width:490px;
+
+    height:25px;
+
+
+    }
+
+
+
+</style>
+<body>
+<div class="form">
+    <div class="he" > <h1 class="heading" >Resume Uploder</h1></div>
+ <form action="" method="post" enctype="multipart/form-data" >
+    {% csrf_token %}
+    {% for fm in form %}<br>
+    {{fm.label_tag}}<br>
+    {{fm}}
+    {{fm.errors|striptags}}
+    {% endfor %}
+
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_error %}
+    {% endfor %}
+    {% endif %}
+<button class="button" type="submit">Submit</button>
+</form>
+</div>
+
+ <div class="list">
+      <h1 class="heading">List of candidates</h1>
+
+         {% if details %}
+  <h1>List of candidates</h1>
+         {% for d in details %}
+
+    {{d.id}}&nbsp; &nbsp; &nbsp; &nbsp;
+    <a href="{% url 'details' d.id %}">{{d.name}}</a><br>
+
+         {% endfor %}
+     {% endif %}
+
+
+
+
+
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+
+</html>
